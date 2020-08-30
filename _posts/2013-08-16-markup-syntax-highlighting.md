@@ -1,127 +1,107 @@
 ---
-title: "Markup: Syntax Highlighting"
-excerpt: "Post displaying the various ways of highlighting code in Markdown."
-last_modified_at: 2018-01-03T09:45:06-05:00
+title: Forms
+excerpt: Post displaying the various ways of highlighting code in Markdown.
+last_modified_at: '2018-01-03T09:45:06.000-05:00'
 header:
-  teaser: "assets/images/markup-syntax-highlighting-teaser.jpg"
-tags: 
-  - code
-  - syntax highlighting
+  teaser: assets/images/markup-syntax-highlighting-teaser.jpg
+tags:
+- Details
 toc: true
+excerpt_separator: "\U0001F4CB"
+
 ---
+Forms are the primary way users provide information!
 
-Syntax highlighting is a feature that displays source code, in different colors and fonts according to the category of terms. This feature facilitates writing in a structured language such as a programming language or a markup language as both structures and syntax errors are visually distinct. Highlighting does not affect the meaning of the text itself; it is intended only for human readers.[^1]
+## Form Fields
 
-[^1]: <http://en.wikipedia.org/wiki/Syntax_highlighting>
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598560203588_Unknown.png)Forms consist of one or more _fields_. In a traditional, paper-based form, we might refer to fields as _boxes_ or _blanks,_ as in “check all the boxes” or “fill in the blanks.” When talking to web developers, we refer to fields as _inputs_, as in “the user inputs information.”
 
-### GFM Code Blocks
+### Text Field
 
-GitHub Flavored Markdown [fenced code blocks](https://help.github.com/articles/creating-and-highlighting-code-blocks/) are supported. To modify styling and highlight colors edit `/_sass/syntax.scss`.
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598560589851_image.png)
 
-```css
-#container {
-  float: left;
-  margin: 0 -240px 0 0;
-  width: 100%;
-}
-```
+A text field is the most basic type of input. In HTML, the `<input>` tag defaults to a text field. Text fields are ideal for short, free-form text. _Free-form_ here means that the user can type anything into the box.
 
-{% highlight scss %}
-.highlight {
-  margin: 0;
-  padding: 1em;
-  font-family: $monospace;
-  font-size: $type-size-7;
-  line-height: 1.8;
-}
-{% endhighlight %}
+{{% tip "Tip Title" %}} In Whimsical, you can quickly insert a text field with the keyboard shortcut `**P**`. {{% /tip %}}
 
-```html
-{% raw %}<nav class="pagination" role="navigation">
-  {% if page.previous %}
-    <a href="{{ site.url }}{{ page.previous.url }}" class="btn" title="{{ page.previous.title }}">Previous article</a>
-  {% endif %}
-  {% if page.next %}
-    <a href="{{ site.url }}{{ page.next.url }}" class="btn" title="{{ page.next.title }}">Next article</a>
-  {% endif %}
-</nav><!-- /.pagination -->{% endraw %}
-```
+If a keyboard user presses `enter` or `return` while focused on a text field, the form will submit. To enable multiple lines or paragraphs, use a text area.
 
-```ruby
-module Jekyll
-  class TagIndex < Page
-    def initialize(site, base, dir, tag)
-      @site = site
-      @base = base
-      @dir = dir
-      @name = 'index.html'
-      self.process(@name)
-      self.read_yaml(File.join(base, '_layouts'), 'tag_index.html')
-      self.data['tag'] = tag
-      tag_title_prefix = site.config['tag_title_prefix'] || 'Tagged: '
-      tag_title_suffix = site.config['tag_title_suffix'] || '&#8211;'
-      self.data['title'] = "#{tag_title_prefix}#{tag}"
-      self.data['description'] = "An archive of posts tagged #{tag}."
-    end
-  end
-end
-```
+### Text Area
 
-### Code Blocks in Lists
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598560546713_image.png)
 
-Indentation matters. Be sure the indent of the code block aligns with the first non-space character after the list item marker (e.g., `1.`). Usually this will mean indenting 3 spaces instead of 4.
+Text areas are similar to text fields, except they allow for multiple lines of text. On Mac OS, users can resize text fields by clicking and dragging the diagonal lines at the bottom-right. With some assistance from JavaScript, developers can dynamically resize a text area based on how much text is entered. Text areas are ideal for long, free-form text.
 
-1. Do step 1.
-2. Now do this:
-   
-   ```ruby
-   def print_hi(name)
-     puts "Hi, #{name}"
-   end
-   print_hi('Tom')
-   #=> prints 'Hi, Tom' to STDOUT.
-   ```
-        
-3. Now you can do this.
+Keyboard users can create new lines or paragraphs by pressing `enter` or `return` while focused on a text area, without the form submitting.
 
-### Jekyll Highlight Tag
+### Checkboxes
 
-An example of a code blocking using Jekyll's [`{% raw %}{% highlight %}{% endraw %}` tag](https://jekyllrb.com/docs/templates/#code-snippet-highlighting).
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598562259671_checks.gif)
 
-{% highlight javascript linenos %}
-// 'gulp html' -- does nothing
-// 'gulp html --prod' -- minifies and gzips HTML files for production
-gulp.task('html', () => {
-  return gulp.src(paths.siteFolderName + paths.htmlPattern)
-    .pipe(when(argv.prod, htmlmin({
-      removeComments: true,
-      collapseWhitespace: true,
-      collapseBooleanAttributes: false,
-      removeAttributeQuotes: false,
-      removeRedundantAttributes: false,
-      minifyJS: true,
-      minifyCSS: true
-    })))
-    .pipe(when(argv.prod, size({title: 'optimized HTML'})))
-    .pipe(when(argv.prod, gulp.dest(paths.siteFolderName)))
-    .pipe(when(argv.prod, gzip({append: true})))
-    .pipe(when(argv.prod, size({
-      title: 'gzipped HTML',
-      gzip: true
-    })))
-    .pipe(when(argv.prod, gulp.dest(paths.siteFolderName)))
-});
-{% endhighlight %}
+Checkboxes allow users to select one or more items from a list. Each checkbox should be accompanied by text.
 
-{% highlight wl linenos %}
-Module[{},
-  Sqrt[2]
-  4
-]
-{% endhighlight %}
+A single checkbox (plus text) can exist on its own:
 
-### GitHub Gist Embed
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598561164879_image.png)
 
-An example of a Gist embed below.
+### Radio Buttons
 
-<script src="https://gist.github.com/mmistakes/77c68fbb07731a456805a7b473f47841.js"></script>
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598562478553_image.png)
+
+Radio buttons might just look like round checkboxes, but there is a key difference: a user can only select one radio button from a list. In the physical world, radio buttons are sometimes called _bubbles._ Bubbles can be found on voting ballots and standardized tests such as the SAT and ACT.
+
+### Dropdown
+
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598572637124_image.png)
+
+Dropdowns (or _select fields_ in HTML) are functionally similar to radio buttons in that the user can select one item from a list. The user experience is slightly different because the options are only revealed upon activating the dropdown.
+
+[Research from CXL](https://cxl.com/research-study/form-field-usability-buttons/) suggests that radio buttons are more efficient than dropdowns. Andrew Coyle, in [Design Better Forms](https://medium.com/nextux/design-better-forms-96fadca0f49c), suggests using a dropdown when you have more than 5 options. For more research-driven tips, read [Simple Rules for Designing Web & Mobile Forms](http://subtract.design/entry/forms/).
+
+:whimsical: In Whimsical, you can quickly create additional dropdown options, checkboxes, or radio buttons using the `return` or `enter` key.
+
+### Toggle
+
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598627912550_image.png)
+
+Functionally, a toggle is similar to a checkbox. You might think of them as “on and off switches.” Unlike the fields mentioned above, toggles are not available “out of the box” in HTML. Toggles require custom implementation by a web developer.
+
+## Field States
+
+In the previous lesson, we explored states in the context of screens. Each form field also has its own state.
+
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598637631859_image.png)
+
+**Try this:** in Whimsical, create a text field. In the context menu that appears when you select the field, select the _State_dropdown. Select each state, and observe how the text field changes.
+
+## Labels & Placeholders
+
+Labels and placeholders are often used interchangeably. This is unfortunate, because there are critical differences that impact accessibility and usability.
+
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598638940644_image.png)
+
+### Labels
+
+The goal of a label is to communicate to the user what information they need to provide. In left-to-right languages such as English, labels can be placed above or to the left of a field. Labels can be accompanied by _help text_ to provide further context.
+
+:whimsical: In Whimsical, you can add a label from the context menu:
+
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598639277348_20200828142747383.gif)
+
+### Placeholders
+
+Placeholders can be useful for indicating to the user what kind of information should be entered into the field. However, because placeholders disappear once text is entered, some experts advise against ever using placeholders.
+
+> "Placeholder text within a form field makes it difficult for people to remember what information belongs in a field, and to check for and fix errors. It also poses additional burdens for users with visual and cognitive impairments." — [Placeholders in Form Fields Are Harmful](https://www.nngroup.com/articles/form-design-placeholders/) from Nielson Norman Group
+
+## Design Better Forms
+
+It is hard to imagine that anyone actually _enjoys_ filling out forms. Rather, they are viewed as a necessary evil. As a UX Designer, your goal should be to create apps that people _want_ to use. How do we reconcile the necessity of forms with desirable user experience?
+
+This is where creativity comes in. Many form fields could be presented in more engaging formats. Visuals, such as icons and illustrations, can communicate what is being asked while injecting a bit of fun.
+
+Consider the example below. Compare it to the examples above for radio buttons and dropdowns. Which is more engaging?
+
+![](https://paper-attachments.dropbox.com/s_384961FBBBD46E6F8BD319E69057F39099099AD0C8B590484353B51FDFEB8B0B_1598639986503_image.png)
+
+For an in-depth look at a design team that iterated on their forms to make them more engaging, read [Beyond Likert scales: How a team made form-filling more fun](https://www.invisionapp.com/inside-design/beyond-likert-scales).
